@@ -1,3 +1,4 @@
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 set nocompatible
 syntax enable
 set encoding=utf-8
