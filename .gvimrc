@@ -1,5 +1,11 @@
 set guioptions-=T
-set guifont=Inconsolata\ 12
+if has('mac')
+  set guifont=Menlo:h12
+  set transparency=15
+elseif has('gui-gtk')
+  set guifont=Inconsolata\ 12
+endif
+
 set background=dark
 colorscheme solarized
 
