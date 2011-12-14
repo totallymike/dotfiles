@@ -2,7 +2,7 @@ set guioptions-=T
 if has('mac')
   set guifont=Menlo:h12
   set transparency=15
-elseif has('gui-gtk')
+elseif has('unix')
   set guifont=Inconsolata\ 12
 endif
 
