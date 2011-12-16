@@ -1,2 +1,3 @@
-.vim/undodir/*
-.vim/_*/*
+vim/.netrwhist
+vim/undodir/*
+vim/_*/*
