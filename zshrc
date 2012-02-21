@@ -39,7 +39,6 @@ setopt hist_ignore_all_dups
 setopt auto_pushd pushd_silent pushd_to_home pushd_ignore_dups
 setopt appendhistory autocd
 unsetopt beep notify
-bindkey -v
 # End of lines configured by zsh-newuser-install
 
 # Define CVS variables.
