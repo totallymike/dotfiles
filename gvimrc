@@ -3,7 +3,7 @@ if has('mac')
   set guifont=Menlo:h12
   set transparency=15
 elseif has('unix')
-  set guifont=Inconsolata\ 12
+  set guifont=Monaco\ for\ Powerline\ 12
 endif
 
 set background=dark
