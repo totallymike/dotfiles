@@ -3,11 +3,12 @@ if has('mac')
   set guifont=Menlo:h12
   set transparency=15
 elseif has('unix')
-  set guifont=Monaco\ for\ Powerline\ 12
+  color zenburn
+  set guifont=Inconsolata\ 12
 endif
 
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
 
 if has("autocmd")
   autocmd InsertLeave * set nocursorline

@@ -1,5 +1,16 @@
 runtime bundle/vim-pathogen/autoload/pathogen.vim
+
 set nocompatible
+
+set autoindent
+set smartindent
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set smarttab
+
+set whichwrap+=<,>,h,l,[,]
+
 syntax enable
 set encoding=utf-8
 
@@ -7,41 +18,35 @@ call pathogen#infect()
 set filetype=on
 filetype plugin indent on
 
-let g:Powerline_symbols = 'fancy'
-
 " Keep at least four lines ahead of the curser when scrolling.
 set so=4
 
-" Disable gvim menus.
-let did_install_default_menus = 1
+" Display extra whitespace
+set list listchars=tab:»·,trail:·
 
 set t_Co=256
 set background=dark
-set guifont=Monaco\ for\ Powerline\ 12
 
-colorscheme solarized
+" colorscheme zenburn
+
+
 set hlsearch
 set ignorecase
 set smartcase
 set incsearch
+set showmatch
+set ruler
+
 
 set laststatus=2
 
 :nnoremap <CR> :nohlsearch<CR>
 :nnoremap <F5> :GundoToggle<CR>
 :nnoremap <F8> :TagbarToggle<CR>
+
 " Allow backgrounding buffers without writing them,
 " And remember marks/undo for backgrounded buffers
 set hidden
-
-set showmatch
-set autoindent
-set smartindent
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set smarttab
-set ruler
 
 " Set statusline to look just like with ruler on, but with fugitive
 " info enabled
