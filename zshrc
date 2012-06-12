@@ -46,7 +46,12 @@ CVSROOT=:pserver:westbom@rykcvs.btv.ibm.com:/cvsroot/FabOps
 export CVSROOT
 export CVSEDITOR=/usr/bin/vim
 
-export PATH=$PATH:/home/mwestbom/bin
+typeset -U path
+path=($path)
+#if [[ -z ${path[(r)/home/mwestbom/bin]} ]] ; then
+#  path=(/home/mwestbom/bin $path)
+#fi
+
 PS1="%n@%m:%~> "
 ###-begin-npm-completion-###
 #
