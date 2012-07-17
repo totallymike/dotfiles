@@ -57,3 +57,5 @@ set undodir=~/.vim/undodir
 set undofile
 set backupdir=~/.vim/_backup  " where to put backup files
 set directory=~/.vim/_temp    " Where to put swap files.
+
+let g:slimv_swank_clojure = '! xterm -e lein swank &'
