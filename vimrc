@@ -9,6 +9,9 @@ set shiftwidth=2
 set expandtab
 set smarttab
 
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
 set whichwrap+=<,>,h,l,[,]
 
 syntax enable
