@@ -25,3 +25,6 @@
 [submodule "vim/bundle/zenburn"]
 	path = vim/bundle/zenburn
 	url = http://github.com/jnurmine/Zenburn.git
+[submodule "vim/bundle/vim-ruby"]
+	path = vim/bundle/vim-ruby
+	url = git://github.com/vim-ruby/vim-ruby.git
