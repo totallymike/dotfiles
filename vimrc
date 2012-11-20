@@ -1,5 +1,3 @@
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-
 set nocompatible
 
 set autoindent
@@ -17,7 +15,6 @@ set whichwrap+=<,>,h,l,[,]
 syntax enable
 set encoding=utf-8
 
-call pathogen#infect()
 set filetype=on
 filetype plugin indent on
 
