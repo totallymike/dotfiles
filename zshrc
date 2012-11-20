@@ -42,9 +42,7 @@ unsetopt beep notify
 # End of lines configured by zsh-newuser-install
 
 # Define CVS variables.
-CVSROOT=:pserver:westbom@rykcvs.btv.ibm.com:/cvsroot/FabOps
-export CVSROOT
-export CVSEDITOR=/usr/bin/vim
+export EDITOR=/usr/bin/vim
 
 typeset -U path
 path=($path)
