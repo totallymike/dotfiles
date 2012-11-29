@@ -1,5 +1,21 @@
 set nocompatible
+filetype off
 
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+" Vundle manages Vundle.
+Bundle 'gmarik/vundle'
+
+" My bundles
+" Github
+Bundle 'tpope/vim-fugitive'
+Bundle 'sjl/gundo.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'ervandew/supertab'
+
+filetype plugin indent on
 set autoindent
 set smartindent
 set tabstop=2
