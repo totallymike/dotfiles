@@ -13,7 +13,9 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'sjl/gundo.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'skalnik/vim-vroom'
 Bundle 'ervandew/supertab'
+Bundle 'chriskempson/base16-vim'
 
 filetype plugin indent on
 set autoindent
