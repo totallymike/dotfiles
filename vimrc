@@ -9,6 +9,7 @@ Bundle 'gmarik/vundle'
 
 " My bundles
 " Github
+Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
 Bundle 'sjl/gundo.vim'
 Bundle 'godlygeek/tabular'
@@ -16,6 +17,11 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'skalnik/vim-vroom'
 Bundle 'ervandew/supertab'
 Bundle 'chriskempson/base16-vim'
+Bundle 'pangloss/vim-javascript'
+Bundle 'xolox/vim-shell'
+
+Bundle 'SAS-Syntax'
+Bundle 'SAS-Indent'
 
 filetype plugin indent on
 set autoindent
@@ -45,9 +51,6 @@ set list listchars=tab:»·,trail:·
 set t_Co=256
 set background=dark
 
-" colorscheme zenburn
-
-
 set hlsearch
 set ignorecase
 set smartcase
@@ -55,8 +58,9 @@ set incsearch
 set showmatch
 set ruler
 
-
 set laststatus=2
+
+set backspace=indent,eol,start
 
 :nnoremap <CR> :nohlsearch<CR>
 :nnoremap <F5> :GundoToggle<CR>
