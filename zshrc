@@ -50,10 +50,6 @@ path=($path)
 #  path=(/home/mwestbom/bin $path)
 #fi
 
-if [[ -e $HOME/.zsh_local ]] ; then
-  . $HOME/.zsh_local
-fi
-
 PS1="%n@%m:%~> "
 ###-begin-npm-completion-###
 #
@@ -97,3 +93,7 @@ elif compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+if [[ -e $HOME/.zsh_local ]] ; then
+  . $HOME/.zsh_local
+fi
