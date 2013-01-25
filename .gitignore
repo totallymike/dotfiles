@@ -2,3 +2,6 @@ vim/.netrwhist
 vim/undodir/*
 vim/_*/*
 .hg*
+
+xmonad/*
+!xmonad/xmonad.hs
