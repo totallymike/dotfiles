@@ -23,6 +23,9 @@ Bundle 'xolox/vim-shell'
 Bundle 'SAS-Syntax'
 Bundle 'SAS-Indent'
 
+" base16 colorscheme
+colorscheme base16-default
+
 filetype plugin indent on
 set autoindent
 set smartindent
