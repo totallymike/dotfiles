@@ -1,4 +1,4 @@
-#define base00 [75]#151515
+#define base00 [95]#151515
 #define base01 #202020
 #define base02 #303030
 #define base03 #505050
@@ -15,6 +15,7 @@
 #define base0E #aa759f
 #define base0F #8f5536
 
+URxvt.depth:        32
 URxvt.foreground:   base05
 URxvt.background:   base00
 URxvt.cursorColor:  base05
