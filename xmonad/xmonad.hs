@@ -4,6 +4,7 @@ import XMonad.Actions.GridSelect
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.NoBorders
 import XMonad.ManageHook
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
@@ -12,10 +13,10 @@ import System.IO
 import qualified XMonad.StackSet as W
 
 main = do
-  xmproc <- spawnPipe "xmobar"
+  xmproc <- spawnPipe "/home/mwestbom/.cabal/bin/xmobar"
   xmonad $ defaultConfig
     { manageHook = manageDocks <+> myManageHook
-    , layoutHook = avoidStruts  $  layoutHook defaultConfig
+    , layoutHook = avoidStruts  $  smartBorders (layoutHook defaultConfig)
     , logHook = dynamicLogWithPP xmobarPP
                     { ppOutput = hPutStrLn xmproc
                     , ppTitle = xmobarColor "green" "" . shorten 50
