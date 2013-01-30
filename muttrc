@@ -1,0 +1,30 @@
+source ~/.mutt/gmail
+
+set move = no
+set imap_keepalive = 900
+
+unset sort_re
+set sort = threads
+set sort_aux = reverse-last-date-received
+
+set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+
+alternative_order text/plain text/enriched text/html
+set implicit_autoview
+auto_view text/html application/x-pgp-message
+set mailcap_path= "~/.mailcap"
+
+unset markers
+set pager_context = 5
+
+set index_format = "%4C %Z %{%b %d} %-15.15F (%?l?%4l&%4c?) %s"
+
+ignore x-mailer
+
+macro index,pager y "<enter-command>unset trash\n <delete-message>" "Gmail archive message"
+macro index,pager d "<enter-command>set trash=\"imaps://imap.gmail.com/[Gmail]/Trash\"\n <delete-message>" "Gmail delete message"
+
+macro index,pager \cb "<pipe-message> urlscan -b -c<Enter>"
+macro attach,compose \cb "<pipe-entry> urlscan -b -c<Enter>"
+
+subscribe rubyparley@googlegroups.com
