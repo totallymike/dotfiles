@@ -1,0 +1,22 @@
+Config { font = "xft:Source Code Pro:size=12:antialias=true"
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = TopW L 90
+       , lowerOnStart = True
+       , persistent = False
+       , commands = [ Run StdinReader
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run BatteryP ["BAT0"]
+                      [ "-t", "<left>%<acstatus> <timeleft>"
+                      , "-L", "25", "-H", "80", "-p", "3"
+                      , "--", "-O", "<fc=green>+</fc> - ", "-o", ""
+                      , "-l", "red", "-m", "blue", "-h", "green"
+                      ] 600
+                    , Run Date "%a %b %_d %Y %I:%M:%S" "date" 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ | %cpu% | %battery% | %date%"
+}
