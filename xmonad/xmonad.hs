@@ -4,6 +4,7 @@ import XMonad.Actions.GridSelect
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName
 import XMonad.Layout.NoBorders
 import XMonad.ManageHook
 import XMonad.Util.Run(spawnPipe)
@@ -21,6 +22,7 @@ main = do
                     { ppOutput = hPutStrLn xmproc
                     , ppTitle = xmobarColor "green" "" . shorten 50
                     }
+    , startupHook = setWMName "LG3D"
     , terminal = "urxvtc"
     , workspaces = myWorkspaces
     } `additionalKeysP`
