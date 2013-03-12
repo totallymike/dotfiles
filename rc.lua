@@ -10,6 +10,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local scratch = require("scratch")
 
 function run_once(prg, args)
   if not prg then
@@ -285,7 +286,8 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    awful.key({ modkey }, "p", function() menubar.show() end),
+    awful.key({ modkey }, "F12", function () scratch.drop("urxvt", "bottom", "left", 0.90, 0.75, true) end )
 )
 
 clientkeys = awful.util.table.join(
@@ -306,6 +308,7 @@ clientkeys = awful.util.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
         end)
+
 )
 
 -- Compute the maximum number of digit we need, limited to 9
