@@ -18,6 +18,7 @@
 URxvt.depth:        32
 URxvt.foreground:   base05
 URxvt.background:   base00
+URxvt.cursorBlink:  true
 URxvt.cursorColor:  base05
 URxvt.color0:       base00
 URxvt.color1:       base08

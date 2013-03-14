@@ -19,6 +19,8 @@ Bundle 'ervandew/supertab'
 Bundle 'chriskempson/base16-vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'xolox/vim-shell'
+Bundle 'othree/html5.vim'
+Bundle 'derekwyatt/vim-scala'
 
 Bundle 'SAS-Syntax'
 Bundle 'SAS-Indent'
