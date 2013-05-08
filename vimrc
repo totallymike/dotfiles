@@ -21,12 +21,15 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'xolox/vim-shell'
 Bundle 'othree/html5.vim'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-rails'
 
 Bundle 'SAS-Syntax'
 Bundle 'SAS-Indent'
 
 " base16 colorscheme
-colorscheme base16-default
+" colorscheme base16-default
 
 filetype plugin indent on
 set autoindent
