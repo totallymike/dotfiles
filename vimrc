@@ -18,9 +18,11 @@ Bundle 'skalnik/vim-vroom'
 Bundle 'ervandew/supertab'
 Bundle 'chriskempson/base16-vim'
 Bundle 'pangloss/vim-javascript'
-Bundle 'xolox/vim-shell'
 Bundle 'othree/html5.vim'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'Shougo/neocomplcache'
+Bundle 'teramako/jscomplete-vim'
+Bundle 'myhere/vim-nodejs-complete'
 Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-rails'
@@ -47,6 +49,8 @@ set whichwrap+=<,>,h,l,[,]
 syntax enable
 set encoding=utf-8
 
+set history=200
+
 set filetype=on
 filetype plugin indent on
 
@@ -69,6 +73,18 @@ set ruler
 set laststatus=2
 
 set backspace=indent,eol,start
+
+" neocomplcache stuff.
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_disable_auto_complete = 1
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+
+let g:nodejs_complete_config = {
+      \ 'js_compl_fn': 'jscomplete#CompleteJS',
+      \ 'max_node_compl_len': 15
+      \}
 
 :nnoremap <CR> :nohlsearch<CR>
 :nnoremap <F5> :GundoToggle<CR>
