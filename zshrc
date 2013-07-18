@@ -50,8 +50,13 @@ path=($path)
 #  path=(/home/mwestbom/bin $path)
 #fi
 
+bindkey '^R' history-incremental-search-backward
+
 PS1="%n@%m:%~> "
 
 if [[ -e $HOME/.zsh_local ]] ; then
   . $HOME/.zsh_local
 fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
