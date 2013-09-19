@@ -3,7 +3,7 @@ vim/undodir/*
 vim/_*/*
 
 vim/bundle
-!vim/vundle/*
+!vim/bundle/neobundle.vim
 
 .hg*
 
