@@ -9,34 +9,35 @@ Bundle 'gmarik/vundle'
 
 " My bundles
 " Github
-Bundle 'scrooloose/nerdtree'
-Bundle 'benmills/vimux'
-Bundle 'tpope/vim-fugitive'
-Bundle 'sjl/gundo.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'skalnik/vim-vroom'
-Bundle 'chriskempson/base16-vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'othree/html5.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-classpath'
-Bundle 'tpope/vim-fireplace'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'ervandew/supertab'
-Bundle 'teramako/jscomplete-vim'
-Bundle 'myhere/vim-nodejs-complete'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-rvm'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-rails'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'ujihisa/neco-ghc'
-" Bundle 'lukerandall/haskellmode-vim'
-Bundle 'SAS-Syntax'
-Bundle 'SAS-Indent'
+" Bundle 'scrooloose/nerdtree'
+" Bundle 'benmills/vimux'
+" Bundle 'tpope/vim-fugitive'
+" Bundle 'sjl/gundo.vim'
+" Bundle 'godlygeek/tabular'
+" Bundle 'vim-ruby/vim-ruby'
+" Bundle 'skalnik/vim-vroom'
+" Bundle 'chriskempson/base16-vim'
+" Bundle 'pangloss/vim-javascript'
+" Bundle 'othree/html5.vim'
+" Bundle 'derekwyatt/vim-scala'
+" Bundle 'guns/vim-clojure-static'
+" Bundle 'tpope/vim-classpath'
+" Bundle 'tpope/vim-fireplace'
+" Bundle 'Shougo/neocomplete.vim'
+" Bundle 'Shougo/unite.vim'
+" Bundle 'ervandew/supertab'
+" Bundle 'teramako/jscomplete-vim'
+" Bundle 'myhere/vim-nodejs-complete'
+" Bundle 'tpope/vim-bundler'
+" Bundle 'tpope/vim-dispatch'
+" Bundle 'tpope/vim-rvm'
+" Bundle 'tpope/vim-rake'
+" Bundle 'tpope/vim-rails'
+" Bundle 'elixir-lang/vim-elixir'
+" Bundle 'ujihisa/neco-ghc'
+" B Bundle 'lukerandall/haskellmode-vim'
+" Bundle 'SAS-Syntax'
+" Bundle 'SAS-Indent'
 
 " base16 colorscheme
 " colorscheme base16-default
@@ -109,6 +110,8 @@ let mapleader = ","
 
 map <Leader>vi :VimuxInspectRunner<CR>
 map <Leader>vq :VimuxCloseRunner<CR>
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
 let g:VimuxHeight = "30"
 
 let g:vroom_use_colors = 1
