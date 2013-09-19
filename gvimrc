@@ -7,7 +7,7 @@ endif
 color base16-default
 
 if has('unix')
-  set guifont=DejaVu\ Sans\ Mono\ 14
+  set guifont=DejaVu\ Sans\ Mono\ 16
 elseif has('win32')
   set guifont=Source_Code_Pro:h14:cANSI
 endif
