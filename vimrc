@@ -1,43 +1,75 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+end
 
-" Vundle manages Vundle.
-Bundle 'gmarik/vundle'
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" I want these plugins everywhere
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'benmills/vimux'
+NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundle 'SAS-Syntax'
+NeoBundle 'SAS-Indent'
+
+" Theme
+NeoBundle 'chriskempson/base16-vim'
+
+" Ruby-specific plugins
+let s:ruby_plugins = [
+      \'vim-ruby/vim-ruby',
+      \'skalnik/vim-vroom',
+      \'tpope/vim-bundler',
+      \'tpope/vim-rvm',
+      \'tpope/vim-rake',
+      \'tpope/vim-rails']
+
+for g:plugin in s:ruby_plugins
+  NeoBundleLazy g:plugin, {'autoload' : { 'filetypes' : ['rb', 'ruby'] }}
+endfor
+
+" Javascript plugins
+let s:javascript_plugins = [
+      \'pangloss/vim-javascript',
+      \'teramako/jscomplete-vim',
+      \'myhere/vim-nodejs-complete']
+
+for g:plugin in s:javascript_plugins
+  NeoBundleLazy g:plugin, {'autoload' : {'filetypes' : ['javascript', 'js']}}
+endfor
+
+NeoBundleLazy 'othree/html5.vim', {'autoload' : {'filetypes' : ['html']}}
+NeoBundleLazy 'JulesWang/css.vim', {'autoload' : {'filetypes' : ['scss.css']}}
+
+NeoBundleLazy 'derekwyatt/vim-scala', {'autoload': {'filetypes' : ['scala']}}
+
+NeoBundleLazy 'ujihisa/neco-ghc', {'autoload': {'filetypes' : ['haskell']}}
+
+NeoBundleLazy 'tpope/vim-markdown', {'autoload': {'filetypes' : ['markdown']}}
+
+NeoBundleLazy 'elixir-lang/vim-elixir', {'autoload': {'filetypes' : ['elixir']}}
+
+unlet g:plugin
+" Check NeoBundles
+NeoBundleCheck
 
 " My bundles
 " Github
-" Bundle 'scrooloose/nerdtree'
-" Bundle 'benmills/vimux'
-" Bundle 'tpope/vim-fugitive'
-" Bundle 'sjl/gundo.vim'
 " Bundle 'godlygeek/tabular'
-" Bundle 'vim-ruby/vim-ruby'
-" Bundle 'skalnik/vim-vroom'
-" Bundle 'chriskempson/base16-vim'
-" Bundle 'pangloss/vim-javascript'
-" Bundle 'othree/html5.vim'
-" Bundle 'derekwyatt/vim-scala'
 " Bundle 'guns/vim-clojure-static'
 " Bundle 'tpope/vim-classpath'
 " Bundle 'tpope/vim-fireplace'
-" Bundle 'Shougo/neocomplete.vim'
-" Bundle 'Shougo/unite.vim'
-" Bundle 'ervandew/supertab'
-" Bundle 'teramako/jscomplete-vim'
-" Bundle 'myhere/vim-nodejs-complete'
-" Bundle 'tpope/vim-bundler'
 " Bundle 'tpope/vim-dispatch'
-" Bundle 'tpope/vim-rvm'
-" Bundle 'tpope/vim-rake'
-" Bundle 'tpope/vim-rails'
-" Bundle 'elixir-lang/vim-elixir'
-" Bundle 'ujihisa/neco-ghc'
 " B Bundle 'lukerandall/haskellmode-vim'
-" Bundle 'SAS-Syntax'
-" Bundle 'SAS-Indent'
 
 " base16 colorscheme
 " colorscheme base16-default
@@ -72,7 +104,9 @@ set so=4
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
+" Let vim know about 256-color shells
 set t_Co=256
+
 set background=dark
 
 set hlsearch
@@ -94,6 +128,8 @@ let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase
 let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 let g:haddock_browser="/usr/bin/google-chrome"
 
@@ -112,7 +148,7 @@ map <Leader>vi :VimuxInspectRunner<CR>
 map <Leader>vq :VimuxCloseRunner<CR>
 map <Leader>vp :VimuxPromptCommand<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
-let g:VimuxHeight = "30"
+let g:VimuxHeight = "25"
 
 let g:vroom_use_colors = 1
 let g:vroom_use_vimux = 1
