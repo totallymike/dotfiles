@@ -1,8 +1,4 @@
 set guioptions-=T
-if has('mac')
-  set guifont=Menlo:h12
-  set transparency=15
-endif
 
 color base16-default
 
@@ -10,6 +6,11 @@ if has('unix')
   set guifont=DejaVu\ Sans\ Mono\ 16
 elseif has('win32')
   set guifont=Source_Code_Pro:h14:cANSI
+endif
+
+if has('mac')
+  set guifont=Menlo:h14
+  set transparency=8
 endif
 
 if has("autocmd")
