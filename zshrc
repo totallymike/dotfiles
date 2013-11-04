@@ -41,16 +41,14 @@ setopt appendhistory autocd
 unsetopt beep notify
 # End of lines configured by zsh-newuser-install
 
-# Define CVS variables.
 export EDITOR=/usr/bin/vim
 
 typeset -U path
 path=($path)
-#if [[ -z ${path[(r)/home/mwestbom/bin]} ]] ; then
-#  path=(/home/mwestbom/bin $path)
-#fi
 
 bindkey '^R' history-incremental-search-backward
+
+source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 PS1="%n@%m:%~> "
 
@@ -58,4 +56,4 @@ if [[ -e $HOME/.zsh_local ]] ; then
   . $HOME/.zsh_local
 fi
 
-### Added by the Heroku Toolbelt
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
