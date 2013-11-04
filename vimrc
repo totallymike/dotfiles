@@ -18,8 +18,6 @@ NeoBundle 'ervandew/supertab'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'benmills/vimux'
 NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'SAS-Syntax'
-NeoBundle 'SAS-Indent'
 
 " Theme
 NeoBundle 'chriskempson/base16-vim'
@@ -40,7 +38,6 @@ endfor
 " Javascript plugins
 let s:javascript_plugins = [
       \'pangloss/vim-javascript',
-      \'teramako/jscomplete-vim',
       \'myhere/vim-nodejs-complete']
 
 for g:plugin in s:javascript_plugins
@@ -57,6 +54,8 @@ NeoBundleLazy 'ujihisa/neco-ghc', {'autoload': {'filetypes' : ['haskell']}}
 NeoBundleLazy 'tpope/vim-markdown', {'autoload': {'filetypes' : ['markdown']}}
 
 NeoBundleLazy 'elixir-lang/vim-elixir', {'autoload': {'filetypes' : ['elixir']}}
+
+NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}}
 
 unlet g:plugin
 " Check NeoBundles
