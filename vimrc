@@ -18,6 +18,7 @@ NeoBundle 'ervandew/supertab'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'benmills/vimux'
 NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundle 'kien/ctrlp.vim'
 
 " Theme
 NeoBundle 'chriskempson/base16-vim'
