@@ -2,6 +2,9 @@ set guioptions-=T
 
 color base16-default
 
+let g:vroom_use_vimux = 0
+let g:vroom_use_colors = 0
+
 if has('unix')
   set guifont=DejaVu\ Sans\ Mono\ 16
 elseif has('win32')
