@@ -12,7 +12,7 @@ elseif has('win32')
 endif
 
 if has('mac')
-  set guifont=Menlo:h14
+  set guifont=Menlo:h18
   set transparency=8
 endif
 
