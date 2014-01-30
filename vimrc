@@ -28,7 +28,7 @@ let s:ruby_plugins = [
       \'vim-ruby/vim-ruby',
       \'skalnik/vim-vroom',
       \'tpope/vim-bundler',
-      \'tpope/vim-rvm',
+      \'tpope/vim-rbenv',
       \'tpope/vim-rake',
       \'tpope/vim-rails']
 
@@ -57,6 +57,8 @@ NeoBundleLazy 'tpope/vim-markdown', {'autoload': {'filetypes' : ['markdown']}}
 NeoBundleLazy 'elixir-lang/vim-elixir', {'autoload': {'filetypes' : ['elixir']}}
 
 NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}}
+
+NeoBundleLazy 'VimClojure', {'autoload': {'filetypes': ['clojure']}}
 
 unlet g:plugin
 " Check NeoBundles
@@ -109,6 +111,7 @@ set t_Co=256
 
 set background=dark
 
+set hidden
 set hlsearch
 set ignorecase
 set smartcase
@@ -128,10 +131,10 @@ let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase
 let g:neocomplete#enable_smart_case = 1
+" minimum complete start length
+let g:neocomplete#auto_completion_start_length = 3
 " Set minimum syntax keyword length
 let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-let g:haddock_browser="/usr/bin/google-chrome"
 
 let g:nodejs_complete_config = {
       \ 'js_compl_fn': 'jscomplete#CompleteJS',
@@ -142,25 +145,19 @@ let mapleader = ","
 
 :nnoremap <CR> :nohlsearch<CR>
 :nnoremap <F5> :GundoToggle<CR>
-:nnoremap <F8> :TagbarToggle<CR>
 
+" vimux
 map <Leader>vi :VimuxInspectRunner<CR>
 map <Leader>vq :VimuxCloseRunner<CR>
 map <Leader>vp :VimuxPromptCommand<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
 let g:VimuxHeight = "25"
 
+" vim-vroom
 let g:vroom_use_colors = 1
 let g:vroom_use_vimux = 1
-" let g:vroom_use_zeus = 1
+let g:vroom_use_spring = 1
 
-" Allow backgrounding buffers without writing them,
-" And remember marks/undo for backgrounded buffers
-set hidden
-
-" Set statusline to look just like with ruler on, but with fugitive
-" info enabled
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 set undodir=~/.vim/undodir
