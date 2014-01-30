@@ -41,8 +41,6 @@ setopt appendhistory autocd
 unsetopt beep notify
 # End of lines configured by zsh-newuser-install
 
-export EDITOR=/usr/bin/vim
-
 typeset -U path
 path=($path)
 
@@ -56,4 +54,3 @@ if [[ -e $HOME/.zsh_local ]] ; then
   . $HOME/.zsh_local
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
