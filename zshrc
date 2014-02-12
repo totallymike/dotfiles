@@ -1,56 +1,79 @@
-# The following lines were added by compinstall
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
 
-zstyle ':completion:*' completer _expand _complete _ignored
-zstyle ':completion:*' completions 1
-zstyle ':completion:*' expand suffix
-zstyle ':completion:*' file-sort modification
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' glob 1
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
-zstyle ':completion:*' max-errors 2
-zstyle ':completion:*' menu select=long-list select=3
-zstyle ':completion:*' original false
-zstyle ':completion:*' prompt '%e number of errors'
-zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-zstyle ':completion:*' substitute 1
-zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
-zstyle :compinstall filename '/home/mwestbom/.zshrc'
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="josh"
 
-if [[ -x "`whence -p dircolors`" ]]; then
-  eval `dircolors`
-  alias ls='ls -F --color=auto'
-  alias grep='grep --color=auto'
-else
-  alias ls='ls -F'
-fi
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Set to this to use case-sensitive completion
+CASE_SENSITIVE="true"
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
-setopt hist_ignore_all_dups
-setopt auto_pushd pushd_silent pushd_to_home pushd_ignore_dups
-setopt appendhistory autocd
-unsetopt beep notify
-# End of lines configured by zsh-newuser-install
+# Uncomment this to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how often before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want to disable command autocorrection
+# DISABLE_CORRECTION="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment following line if you want to disable marking untracked files under
+# VCS as dirty. This makes repository status check for large repositories much,
+# much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment following line if you want to  shown in the command execution time stamp 
+# in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
+# yyyy-mm-dd
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+
+export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_AUTOSTART_ONCE=true
+export ZSH_TMUX_FIXTERM=true
+plugins=(gitfast brew rbenv tmux autojump bundler)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+bindkey -v
 
 typeset -U path
 path=($path)
 
-bindkey '^R' history-incremental-search-backward
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.bin:$PATH
+# export MANPATH="/usr/local/man:$MANPATH"
 
-source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# # Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-PS1="%n@%m:%~> "
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-if [[ -e $HOME/.zsh_local ]] ; then
-  . $HOME/.zsh_local
-fi
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
