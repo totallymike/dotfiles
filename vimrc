@@ -176,7 +176,10 @@ let g:VimuxHeight = "25"
 " vim-vroom
 let g:vroom_use_colors = 1
 let g:vroom_use_vimux = 1
-let g:vroom_use_spring = 1
+
+" vim-rubocop
+let g:vimrubocop_keymap = 0
+nmap <Leader>c :RuboCop<CR>
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
