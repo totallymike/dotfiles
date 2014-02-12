@@ -129,6 +129,9 @@ let $PATH = $PATH . ':' . expand("~/.cabal/bin")
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 " neocomplete stuff.
+
+set complete=i,.,b,w,u,U,]
+
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
@@ -139,6 +142,18 @@ let g:neocomplete#auto_completion_start_length = 3
 " Set minimum syntax keyword length
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+if !exists('g:neocomplete#force_overwrite_completefunc')
+  let g:neocomplete#force_omni_input_patterns = {}
+end
+
 let g:nodejs_complete_config = {
       \ 'js_compl_fn': 'jscomplete#CompleteJS',
       \ 'max_node_compl_len': 15
@@ -148,6 +163,8 @@ let mapleader = ","
 
 :nnoremap <CR> :nohlsearch<CR>
 :nnoremap <F5> :GundoToggle<CR>
+
+nnoremap <Leader>f :Unite -start-insert file_rec/async:!<CR>
 
 " vimux
 map <Leader>vi :VimuxInspectRunner<CR>
