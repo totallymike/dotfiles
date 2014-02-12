@@ -30,7 +30,8 @@ let s:ruby_plugins = [
       \'tpope/vim-bundler',
       \'tpope/vim-rbenv',
       \'tpope/vim-rake',
-      \'tpope/vim-rails']
+      \'tpope/vim-rails',
+      \'ngmy/vim-rubocop']
 
 for g:plugin in s:ruby_plugins
   NeoBundleLazy g:plugin, {'autoload' : { 'filetypes' : ['rb', 'ruby'] }}
