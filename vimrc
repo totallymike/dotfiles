@@ -126,6 +126,8 @@ set backspace=indent,eol,start
 
 let $PATH = $PATH . ':' . expand("~/.cabal/bin")
 
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
 " neocomplete stuff.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
