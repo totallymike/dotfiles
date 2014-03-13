@@ -74,4 +74,4 @@ export PATH=$HOME/.bin:$PATH
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-
+export RBENV_ROOT=$HOME/.rbenv
