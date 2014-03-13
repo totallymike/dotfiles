@@ -17,12 +17,12 @@ NeoBundle 'Shougo/vimproc', {
   \}
 
 " I want these plugins everywhere
+NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'kana/vim-metarw'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'joker1007/vim-metarw-github-issues'
 NeoBundle 'sjl/gundo.vim'
-NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -152,31 +152,7 @@ nnoremap <C-p> :Unite -auto-preview grep:.<CR>
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-" neocomplete stuff.
-
-set complete=i,.,b,w,u,U,]
-
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase
-let g:neocomplete#enable_smart_case = 1
-" minimum complete start length
-let g:neocomplete#auto_completion_start_length = 3
-" Set minimum syntax keyword length
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-if !exists('g:neocomplete#force_overwrite_completefunc')
-  let g:neocomplete#force_omni_input_patterns = {}
-end
+let g:EclimCompletionMethod = 'omnifunc'
 
 let g:nodejs_complete_config = {
       \ 'js_compl_fn': 'jscomplete#CompleteJS',
