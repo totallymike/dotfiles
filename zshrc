@@ -46,9 +46,6 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 
-export ZSH_TMUX_AUTOSTART=true
-export ZSH_TMUX_AUTOSTART_ONCE=true
-export ZSH_TMUX_FIXTERM=true
 plugins=(gitfast brew rbenv tmux autojump bundler)
 
 source $ZSH/oh-my-zsh.sh
