@@ -53,6 +53,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 bindkey -v
+bindkey '^R' history-incremental-search-backward
 
 typeset -U path
 path=($path)
