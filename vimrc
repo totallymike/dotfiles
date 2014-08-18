@@ -23,9 +23,11 @@ NeoBundle 'kana/vim-metarw'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'joker1007/vim-metarw-github-issues'
 NeoBundle 'sjl/gundo.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'rking/ag.vim'
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'benmills/vimux'
 NeoBundle 'cakebaker/scss-syntax.vim'
 
@@ -135,22 +137,8 @@ set backspace=indent,eol,start
 
 let $PATH = $PATH . ':' . expand("~/.cabal/bin")
 
-let g:unite_winheight = 20
-let g:unite_split_rule = 'botright'
-
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nobreak --nocolor --noheading'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
 let g:github_user='totallymike'
 let g:github_token='412f27c60426aa3147cd3931bba1c4b4b5be111b'
-
-nnoremap <Leader>/ :<C-u>Unite -auto-preview grep:.<CR>
-nnoremap <C-p> :Unite -auto-preview grep:.<CR>
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 let g:EclimCompletionMethod = 'omnifunc'
 
@@ -163,8 +151,6 @@ let mapleader = ","
 
 :nnoremap <CR> :nohlsearch<CR>
 :nnoremap <F5> :GundoToggle<CR>
-
-nnoremap <Leader>f :Unite -start-insert file_rec/async:!<CR>
 
 " vimux
 map <Leader>vi :VimuxInspectRunner<CR>
