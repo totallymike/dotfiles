@@ -11,7 +11,13 @@
  dotspacemacs-configuration-layer-path '("~/.mycontribs/")
  ;; List of contribution to load.
  dotspacemacs-configuration-layers '(
-                                     my-packages)
+                                     javascript
+                                     ruby
+                                     erlang-elixir
+                                     magit
+                                     yaml
+                                     rust
+                                     golang)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
 )
@@ -27,6 +33,8 @@
  dotspacemacs-guide-key-delay 0.4
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
+ ;; Smartparens strict mode
+ dotspacemacs-smartparens-strict-mode t
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
  ;; overrides the default behavior of Emacs which recenters the point when
  ;; it reaches the top or bottom of the screen
@@ -51,6 +59,10 @@
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
+  (setq mac-command-modifier 'hyper)
+  (setq mac-option-modifier 'meta)
+  (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 )
 
 ;; Custom variables
@@ -71,8 +83,25 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
+ '(c-basic-offset 2)
+ '(css-indent-offset 2)
+ '(expand-region-contract-fast-key "V")
+ '(expand-region-reset-fast-key "r")
+ '(js-indent-level 2)
  '(js2-basic-offset 2)
- '(ring-bell-function (quote ignore) t))
+ '(paradox-github-token t)
+ '(rcirc-default-nick "totallymike")
+ '(rcirc-server-alist (quote (("chat.freenode.net" :channels ("#rcirc")))))
+ '(ring-bell-function (quote ignore) t)
+ '(ruby-align-chained-calls nil)
+ '(ruby-deep-arglist nil)
+ '(ruby-deep-indent-paren nil)
+ '(rust-indent-offset 2)
+ '(smie-indent-basic 2)
+ '(web-mode-code-indent-offset 2)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-markup-indent-offset 2)
+ '(web-mode-sql-indent-offset 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
