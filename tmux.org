@@ -1,0 +1,72 @@
+#+TITLE: Tmux configuration
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+This file describes my tmux configuration.
+
+Before it's any good, you need [[https://github.com/tmux-plugins/tpm][tpm]]:
+
+#+BEGIN_SRC sh :tangle no
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+#+END_SRC
+
+* Plugins
+
+  This list of plugins is managed by tpm
+
+** Tmux Plugin Manager
+
+   First we load TPM itself
+
+   #+BEGIN_SRC conf
+     set -g @plugin 'tmux-plugins/tpm'
+   #+END_SRC
+
+** The rest
+
+   And then the rest
+
+   #+BEGIN_SRC conf
+     set -g @plugin 'tmux-plugins/tpm'
+     set -g @plugin 'tmux-plugins/tmux-sensible'
+     set -g @plugin 'tmux-plugins/tmux-pain-control'
+     set -g @plugin 'tmux-plugins/tmux-sessionist'
+   #+END_SRC
+
+* Config
+
+  Now some basic config stuff we might want.
+
+** Prefix
+
+   =C-b= is not a prefix I can work with. =C-o= doesn't seem to
+   conflict with anything I really need, so it'll do very well.
+
+   #+BEGIN_SRC conf
+     set-option -g prefix C-o
+     bind-key C-o last-window
+   #+END_SRC
+
+   Also, in the event of nested tmux sessions, let's allow =C-o o
+   <command>= to work
+
+   #+BEGIN_SRC conf
+     bind-key o send-prefix
+   #+END_SRC
+
+* Initialize TPM
+
+  This must happen last.
+
+  #+BEGIN_SRC conf
+    run '~/.tmux/plugins/tpm/tpm'
+  #+END_SRC
+
+* Technical Junk
+
+  The following are the tangled settings. Type =C-c C-v t= to create
+  the script file.
+
+#+PROPERTY: tangle ~/.tmux.conf
+#+PROPERTY: comments org
+#+DESCRIPTION: A tmux configuration

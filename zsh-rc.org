@@ -1,0 +1,140 @@
+#+TITLE: Zsh RC file
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+This startup file is loaded for /interactive/ shells.
+On a mac, you can get zplug by running
+
+#+BEGIN_SRC sh :tangle no
+  brew install zplug
+#+END_SRC
+
+* Zplug
+
+  It depends heavily on [[https://github.com/zplug/zplug][zplug]] to load bits and snippets from other
+  places.
+
+  #+BEGIN_SRC sh
+    export ZPLUG_HOME=/usr/local/opt/zplug
+    source $ZPLUG_HOME/init.zsh
+  #+END_SRC
+
+* A bunch of Prezto plugins
+
+  Next we steal a bunch of plugins from [[https://github.com/sorin-ionescu/prezto/][prezto]]. This feels a bit hackish sometimes,
+  for example when having to set =zstyle= settings specific to the plugins.
+
+  Ah well. Not so bad, really.
+
+  #+BEGIN_SRC sh
+    zstyle ':prezto:module:editor' key-bindings 'emacs'
+
+    zplug "modules/environment", from:prezto
+    zplug "modules/history", from:prezto
+    zplug "modules/editor", from:prezto
+    zplug "modules/spectrum", from:prezto
+    zplug "modules/git", from:prezto
+  #+END_SRC
+
+* FASD
+
+  [[https://github.com/clvv/fasd][fasd]] seems to do a bunch of stuff, but mostly I like it for the =j=
+  alias the following config gets me.
+
+  I stole this stuff all from the [[https://github.com/sorin-ionescu/prezto/blob/master/modules/fasd/init.zsh][prezto module]] as well.
+
+  #+BEGIN_SRC sh
+    ## fasd config
+    cache_file="${0:h}/cache.zsh"
+    if [[ "${commands[fasd]}" -nt "$cache_file" || ! -s "$cache_file" ]]; then
+      # Set the base init arguments.
+      init_args=(zsh-hook)
+
+      # Set fasd completion init arguments.
+      init_args+=(zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)
+
+      fasd --init "$init_args[@]" >! "$cache_file" 2> /dev/null
+    fi
+
+    source "$cache_file"
+
+    unset cache_file init_args
+
+    function fasd_cd {
+      local fasd_ret="$(fasd -d "@")"
+      if [[ -d "$fasd_ret" ]]; then
+        cd "$fasd_ret"
+      else
+        print "$fasd_ret"
+      fi
+    }
+
+    alias j='fasd_cd -i'
+  #+END_SRC
+
+* Completions
+
+  A bunch of extra completions from [[https://github.com/zsh-users/zsh-completions][zsh-users/zsh-completions]]. I'll
+  probably never use most of them.
+
+  #+BEGIN_SRC sh
+    zplug "zsh-users/zsh-completions"
+  #+END_SRC
+
+* Dev env stuff
+
+  Stuff pertaining to making sure my dev tools are set up properly.
+
+** ASDF
+
+   [[https://github.com/asdf-vm/asdf][asdf]] is a generic version manager to track things like node, php, etc.
+
+   #+BEGIN_SRC sh
+     . $HOME/.asdf/asdf.sh
+     . $HOME/.asdf/completions/asdf.bash
+   #+END_SRC
+
+* Theme
+
+  Who knows what I'll eventuall settle on, but for now I'm using
+  [[https://github.com/marszall87/lambda-pure][lambda-pure]] as my zsh theme. It seems to be fairly fast, and looks
+  nice.
+
+  #+BEGIN_SRC sh
+     zplug "mafredri/zsh-async"
+     zplug "marszall87/lambda-pure"
+  #+END_SRC
+
+* Syntax highlighting
+
+  This has to come late in the game, so here it is.
+
+  #+BEGIN_SRC sh
+     zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  #+END_SRC
+
+* Fire off all the zplug stuff
+
+  This has to come at the very end, so zplug can figure out what
+  plugins it needs, install them, and then load them.
+
+  #+BEGIN_SRC sh
+    if ! zplug check --verbose; then
+        printf "Install [y/N]: "
+        if read -q; then
+            echo; zplug install
+        fi
+    fi
+
+    zplug load
+   #+END_SRC
+
+* Technical junk
+
+  The following are the tangled settings. Type =C-c C-v t= to create
+  the script file.
+
+#+PROPERTY: tangle ~/.zshrc
+#+PROPERTY: comments both
+#+PROPERTY: shebang #!/usr/local/bin/zsh
+#+DESCRIPTION: Basic config for zsh

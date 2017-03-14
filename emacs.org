@@ -1,0 +1,265 @@
+#+TITLE:  Emacs Configuration File
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+* Introduction
+
+  This is the entrypoint of my =.emacs= file.  It's written in a
+  [[http://www.orgmode.org][literate style]], as ganked from [[https://github.com/howardabrams/dot-files][Howard Abrams]].  The notes also
+  include hyperlinks from where /he/ stole it from :-)
+
+** Emacs Executable
+
+   Currently I'm using [[https://github.com/d12frosted/homebrew-emacs-plus][Emacs Plus]] as my preferred Emacs build.  They
+   can tell you how it's built better than I can.
+
+* General Settings
+** Directory location
+
+   Utility functions for pathmaking funtimess
+
+   #+BEGIN_SRC elisp
+     (defun mw/emacs-subdirectory (d) (expand-file-name d user-emacs-directory))
+   #+END_SRC
+
+** Directory Structure
+
+   In case this is the first time running this on a computer, we need
+   to make sure the following directories have been created.
+
+   #+BEGIN_SRC elisp
+     (let* ((subdirs '("elisp" "backups"))
+            (fulldirs (mapcar (lambda (d) (mw/emacs-subdirectory d)) subdirs)))
+       (dolist (dir fulldirs)
+         (when (not (file-exists-p dir))
+           (message "Make directory: %s" dir)
+           (make-directory dir))))
+   #+END_SRC
+
+** Customization Section
+
+   Customize is pretty neat sometimes, so let's stick it in a place.
+
+   #+BEGIN_SRC elisp
+     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+     (when (file-exists-p custom-file)
+       (load custom-file))
+   #+END_SRC
+
+** Setting up the load path
+
+   Extra packages not available via the package manager go in
+   a stash at =$HOME/.emacs.d/elisp=
+
+   #+BEGIN_SRC elisp
+     (add-to-list 'load-path (mw/emacs-subdirectory "elisp"))
+   #+END_SRC
+
+** Modernizing Emacs
+
+   We've tons of RAM, let's use it :)
+
+   #+BEGIN_SRC elisp
+     (setq gc-cons-threshold 50000000)
+   #+END_SRC
+
+* Package Initialization
+** Package Manager
+
+   Emacs package management sources
+
+   #+BEGIN_SRC elisp
+     (require 'package)
+
+     (setq package-archives '(("org" . "http://orgmode.org/elpa/")
+                              ("gnu" . "http://elpa.gnu.org/packages/")
+                              ("melpa" . "https://melpa.org/packages/")))
+     (package-initialize)
+     (package-refresh-contents)
+   #+END_SRC
+
+** Use-package
+
+   Using [[https://github.com/jwiegley/use-package][use-package]] to automatically install certain packages, as
+   well as lazy-load them.
+
+   #+BEGIN_SRC elisp
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+   #+END_SRC
+
+** Init File Support
+
+   Load up my collection of enhancements to Emacs Lisp, including [[https://github.com/magnars/dash.el][dash]]
+   and [[https://github.com/magnars/s.el][s]] for string manipulation, as much of the initialization code
+   depends on it.
+
+   #+BEGIN_SRC elisp
+     (require 'cl)
+
+     (use-package dash
+       :ensure t
+       :config (eval-after-load "dash" '(dash-enable-font-lock)))
+
+     (use-package s
+       :ensure t)
+   #+END_SRC
+
+* Variables
+
+  General settings about me that other packages can use.
+
+  #+BEGIN_SRC elisp
+    (setq user-mail-address "michael.westbom@maxwellhealth.com")
+  #+END_SRC
+
+** Tabs vs Spaces
+
+   Tabs are bad news.
+
+   #+BEGIN_SRC elisp
+     (setq-default indent-tabs-mode nil)
+     (setq tab-width 2)
+   #+END_SRC
+
+   Make tab key do indent first, then completion.
+
+   #+BEGIN_SRC elisp
+     (setq-default tab-always-indent 'complete)
+   #+END_SRC
+
+** Misc. Variable Settings
+
+   So over typing =yes=
+   #+BEGIN_SRC elisp
+     (fset 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
+
+* Display Settings
+
+  Cut out some junk
+
+  #+BEGIN_SRC elisp
+    (setq initial-scratch-message "")
+    (setq visible-bell t)
+
+    (when (window-system)
+      (tool-bar-mode -1)
+      (when (fboundp 'horizontal-scroll-bar-mode)
+        (horizontal-scroll-bar-mode -1))
+      (scroll-bar-mode -1))
+  #+END_SRC
+
+** Whitespace mode
+
+   I love whitespace mode. Gank some stuff from [[https://github.com/syl20bnr/spacemacs][spacemacs]]
+
+   #+BEGIN_SRC elisp
+     (use-package whitespace
+       :defer t
+       :init
+       (progn
+         (setq whitespace-style '(face
+                                  tabs
+                                  tab-mark
+                                  trailing
+                                  indentation::tab))
+
+         (setq mw-show-trailing-whitespace t)
+         (defun mw//show-trailing-whitespace ()
+           (when mw-show-trailing-whitespace
+             (whitespace-mode)
+             (set-face-attribute 'trailing-whitespace nil
+                                 :background
+                                 (face-attribute 'font-lock-comment-face
+                                                 :foreground))
+             (setq show-trailing-whitespace 1)))
+         (add-hook 'prog-mode-hook 'mw//show-trailing-whitespace)
+
+         (defun mw//set-whitespace-style-for-diff ()
+           "Whitespace configuration for `diff-mode'"
+           (setq-local whitespace-style '(face
+                                          tabs
+                                          tab-mark
+                                          spaces
+                                          space-mark
+                                          trailing
+                                          indentation::space
+                                          indentation::tab
+                                          newline)))
+         (add-hook 'diff-mode-hook 'whitespace-mode)
+         (add-hook 'diff-mode-hook 'mw//set-whitespace-style-for-diff))
+       :config
+       (progn
+         (set-face-attribute 'whitespace-tab nil
+                             :background nil)))
+
+   #+END_SRC
+
+* Key Bindings
+
+** Displaying Command Sequences
+
+   Many command sequences may be logical, but who can remember them all?
+
+   Let's use [[https://github.com/justbur/emacs-which-key][which-key]] to display them as I type
+
+   #+BEGIN_SRC elisp
+     (use-package which-key
+       :ensure t
+       :defer 10
+       :diminish which-key-mode
+       :config
+       (which-key-add-key-based-replacements
+        "C-x 8" "unicode"
+        "C-c T" "toggles-"
+        "C-c C-v" "org-babel")
+       (which-key-mode 1))
+   #+END_SRC
+
+* Magit
+
+  Omg I love this so much
+
+  #+BEGIN_SRC elisp
+    (use-package magit
+      :ensure t
+      :commands magit-status magit-blame
+      :bind ("C-x g" . magit-status))
+  #+END_SRC
+
+* Org-Mode
+
+  See [[file:emacs-org.org][emacs-org-mode.el]] for my details on my [[http://www.orgmode.org][Org-Mode]] settings.
+
+** Load up the Local Configuration
+
+   Before we finish, we need to check if there is a local file for us
+   to load and evaluate.  We assume the local file has been tangled
+   and provides the =init-local= key:
+
+   #+BEGIN_SRC elisp
+     (require 'init-local nil t)
+   #+END_SRC
+
+   Finally, let's get happy:
+
+   After the first load, we can reload this with a require:
+
+   #+BEGIN_SRC elisp
+     (provide 'init-main)
+   #+END_SRC
+
+   Before you can build this on a new system, make sure that you put
+   the cursor over any of these properties, and hit: =C-c C-c=
+
+#+DESCRIPTION: A literate programming version of my Emacs Initialization script, loaded by the .emacs file.
+#+PROPERTY:    results silent
+#+PROPERTY:    header-args:sh  :tangle no
+#+PROPERTY:    tangle ~/.emacs.d/elisp/init-main.el
+#+PROPERTY:    eval no-export
+#+PROPERTY:    comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js

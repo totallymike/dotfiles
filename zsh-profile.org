@@ -1,0 +1,73 @@
+#+TITLE: Zsh Profile
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+This stuff all runs pre-[[file:zsh-rc.org][zshrc]].
+
+* Editors
+
+  #+BEGIN_SRC sh
+    export EDITOR='emacsclient -n -c'
+    export VISUAL='emacsclient -n -c'
+    export GIT_EDITOR='emacs'
+    export PAGER='less'
+  #+END_SRC
+
+* Language
+
+  #+BEGIN_SRC sh
+    if [[ -z "$LANG" ]]; then
+      export LANG='en_US.UTF-8'
+    fi
+  #+END_SRC
+
+* Paths
+
+  Ensure path arrays don't contain duplicates
+
+  #+BEGIN_SRC sh
+    typeset -gU cdpath fpath mailpath path
+  #+END_SRC
+
+  Set the list of directories that zsh searches for programs.
+
+  #+BEGIN_SRC sh
+    path=(
+      /usr/local/bin/{bin,sbin}
+      $path
+    )
+  #+END_SRC
+
+* Less
+
+  Set the default Less options.  Mouse-wheel scrolling has been
+  disabled by =-X= (Disable screen clearing). Remove =-X= and =-F=
+  (exit if the content fits on one screen) to enable it.
+
+  #+BEGIN_SRC sh
+    export LESS='-F -g -i -M -R -S -w -X -z-4'
+  #+END_SRC
+
+* Temporary files
+
+  Since I stole most of this stuff from prezto, I'm not sure what this
+  does:
+
+  #+BEGIN_SRC sh
+    if [[ -d "$TMPDIR" ]]; then
+      export TMPDIR="/tmp/$LOGNAME"
+      mkdir -p -m 700 "$TMPDIR"
+    fi
+
+    TMPPREFIX="${TMPDIR%/}/zsh"
+  #+END_SRC
+
+* Technical junk
+
+  The following are the tangled settings. Type =C-c C-v t= to create
+  the script file.
+
+#+PROPERTY: tangle ~/.zprofile
+#+PROPERTY: comments both
+#+PROPERTY: shebang #!/usr/local/bin/zsh
+#+DESCRIPTION: Basic config for zsh

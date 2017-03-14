@@ -1,0 +1,9 @@
+#+TITLE: Client Configuration for Emacs
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+#+DATE: 2017 Mar 14
+#+TAGS: emacs
+
+The settings in this file are only included on a Macintosh, Linux, or
+other system with a graphical front-end.
+
