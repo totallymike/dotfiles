@@ -36,6 +36,16 @@
            (make-directory dir))))
    #+END_SRC
 
+** Backup files
+
+   Such a mess!
+
+   #+BEGIN_SRC elisp
+     (setq backup-directory-alist
+           `(("." . ,(expand-file-name
+                      (mw/emacs-subdirectory "backups")))))
+   #+END_SRC
+
 ** Customization Section
 
    Customize is pretty neat sometimes, so let's stick it in a place.
