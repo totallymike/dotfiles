@@ -316,6 +316,7 @@
      (require 'init-local nil t)
    #+END_SRC
 
+* Technical junk
    Finally, let's get happy:
 
    After the first load, we can reload this with a require:
