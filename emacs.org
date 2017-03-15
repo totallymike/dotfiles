@@ -227,6 +227,69 @@
         "C-c C-v" "org-babel")
        (which-key-mode 1))
    #+END_SRC
+* General Behavior fixes
+
+  Some crap's going to go here eventually.
+
+* Undo and Redo
+
+  undo-tree is the bomb
+
+  #+BEGIN_SRC elisp
+    (use-package undo-tree
+      :ensure t
+      :diminish undo-tree-mode
+      :init
+      (global-undo-tree-mode 1)
+      :config
+      (defalias 'redo 'undo-tree-redo))
+  #+END_SRC
+
+* Multiple Cursors
+
+  I always forget to install this when I manually emacs
+
+  #+BEGIN_SRC elisp
+    (use-package multiple-cursors
+      :ensure t
+      :commands (mc/mark-next-like-this
+                 mc/mark-previous-like-this
+                 mc/mark-all-like-this
+                 mc/edit-lines)
+      :config
+      (progn
+        (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+        (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+        (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+        (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)))
+  #+END_SRC
+
+* Loading and Finding Files
+
+** Ivy
+
+   [[https://github.com/abo-abo/swiper][Ivy]] is a generic completion mechanism for emacs. I wonder if I'll
+   like it more than Helm.
+
+   #+BEGIN_SRC elisp
+     (use-package ivy
+       :ensure t
+       :config (ivy-mode))
+   #+END_SRC
+
+** Projectile
+
+   Projectile is rad and very good.
+
+   #+BEGIN_SRC elisp
+     (use-package projectile
+       :ensure t
+       :init (projectile-global-mode 1)
+       :config
+       (add-to-list 'projectile-globally-ignored-files ".DS_Store")
+       :bind (("C-c p s s" . projecile-ag)
+              ("C-c p p" . projectile-switch-project)))
+   #+END_SRC
 
 * Magit
 
