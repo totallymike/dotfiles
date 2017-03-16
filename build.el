@@ -1,4 +1,5 @@
 (require 'org)
+(require 'org-element)
 (require 'ob)
 (require 'ob-tangle)
 
@@ -70,4 +71,3 @@
 (mw/build-dot-files)  ;; Do it
 
 (provide 'dot-files)
-  

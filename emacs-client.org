@@ -7,3 +7,65 @@
 The settings in this file are only included on a Macintosh, Linux, or
 other system with a graphical front-end.
 
+* Font Settings
+
+  Let's figure out what fonts I've got installed.
+
+  #+BEGIN_SRC emacs-lisp
+    (defvar mw/fixed-font-family
+      (cond ((x-list-fonts "Fira Code") "Fira Code")
+            ((x-list-fonts "Hack") "Hack"))
+      "My fixed width font based on what is installed, `nil' if not defined.")
+  #+END_SRC
+
+  And now set up the client to use one.
+
+  #+BEGIN_SRC emacs-lisp
+    (when mw/fixed-font-family
+      (set-frame-font mw/fixed-font-family)
+      (set-face-attribute 'default nil :font mw/fixed-font-family :height 180)
+      (set-face-font 'default mw/fixed-font-family))
+  #+END_SRC
+
+* Color Scheme
+
+  I like base16, particularly the eighties variants.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package base16-theme
+      :ensure t
+      :init
+      (progn
+      (add-to-list 'custom-enabled-themes 'base16-eighties)
+      (load-theme 'base16-eighties 't)))
+  #+END_SRC
+
+* Bits and Pieces
+
+  Load up the particular operating system variation.
+
+  #+BEGIN_SRC emacs-lisp
+    (if (eq system-type 'darwin)
+        (require 'init-mac))
+  #+END_SRC
+
+* Technical Artifacts
+
+  Now simply =require= this libary
+
+  #+BEGIN_SRC emacs-lisp
+    (provide 'init-client)
+  #+END_SRC
+
+  Before you can build this on a new system, make sure that you put
+  the cursor over any of these properties, and hit: =C-c C-c=
+
+#+DESCRIPTION: A literate programming version of my Emacs Initialization script, loaded by the .emacs file.
+#+PROPERTY:    header-args :results silent
+#+PROPERTY:    header-args:sh  :tangle no
+#+PROPERTY:    header-args:emacs-lisp :tangle ~/.emacs.d/elisp/init-client.el
+#+PROPERTY:    header-args :eval no-export
+#+PROPERTY:    header-args :comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js

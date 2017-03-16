@@ -18,7 +18,7 @@
 
    Utility functions for pathmaking funtimess
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (defun mw/emacs-subdirectory (d) (expand-file-name d user-emacs-directory))
    #+END_SRC
 
@@ -27,7 +27,7 @@
    In case this is the first time running this on a computer, we need
    to make sure the following directories have been created.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (let* ((subdirs '("elisp" "backups"))
             (fulldirs (mapcar (lambda (d) (mw/emacs-subdirectory d)) subdirs)))
        (dolist (dir fulldirs)
@@ -40,7 +40,7 @@
 
    Such a mess!
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (setq backup-directory-alist
            `(("." . ,(expand-file-name
                       (mw/emacs-subdirectory "backups")))))
@@ -50,7 +50,7 @@
 
    Customize is pretty neat sometimes, so let's stick it in a place.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
      (when (file-exists-p custom-file)
        (load custom-file))
@@ -61,7 +61,7 @@
    Extra packages not available via the package manager go in
    a stash at =$HOME/.emacs.d/elisp=
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (add-to-list 'load-path (mw/emacs-subdirectory "elisp"))
    #+END_SRC
 
@@ -69,7 +69,7 @@
 
    We've tons of RAM, let's use it :)
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (setq gc-cons-threshold 50000000)
    #+END_SRC
 
@@ -78,7 +78,7 @@
 
    Emacs package management sources
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (require 'package)
 
      (setq package-archives '(("org" . "http://orgmode.org/elpa/")
@@ -93,7 +93,7 @@
    Using [[https://github.com/jwiegley/use-package][use-package]] to automatically install certain packages, as
    well as lazy-load them.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (unless (package-installed-p 'use-package)
        (package-refresh-contents)
        (package-install 'use-package))
@@ -105,7 +105,7 @@
    and [[https://github.com/magnars/s.el][s]] for string manipulation, as much of the initialization code
    depends on it.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (require 'cl)
 
      (use-package dash
@@ -116,11 +116,46 @@
        :ensure t)
    #+END_SRC
 
+** Macros I stole from spacemacs
+*** add-company-hook
+
+    [[https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/core/core-auto-completion.el#L29][From here]]
+
+    #+BEGIN_SRC emacs-lisp
+      (defvar mw-default-company-backends
+        '((company-dabbrev-code company-keywords)
+          company-files company-dabbrev)
+        "The list of default company backends used by this config.")
+
+      (defmacro mw|defvar-company-backends (mode)
+        "Define a MODE specific company backend variable with default backends.
+      The variable name format is company-backends-MODE."
+        `(defvar ,(intern (format "company-backends-%S" mode))
+           ',mw-default-company-backends
+           ,(format "Company backend list for %S" mode)))
+
+      (defmacro mw|add-company-hook (mode)
+        "Enable company for the given MODE.
+      MODE must match the symbol passed in `mw|defvar-company-backends'.
+      The initialization function is hooked to `MODE-hook'."
+        (let ((mode-hook (intern (format "%S-hook" mode)))
+              (func (intern (format "mw//init-company-%S" mode)))
+              (backend-list (intern (format "company-backends-%S" mode))))
+          `(defun ,func ()
+             ,(format "Initialize company for %S" mode)
+             (set (make-variable-buffer-local 'auto-completion-front-end)
+                  'company)
+             (set (make-variable-buffer-local 'company-backends)
+                  ,backend-list))
+          (add-hook ',mode-hook ',func t)
+          (add-hook ',mode-hook 'company-mode t)))
+    #+END_SRC
+
 * Variables
 
   General settings about me that other packages can use.
 
-  #+BEGIN_SRC elisp
+  #+BEGIN_SRC emacs-lisp
     (setq user-mail-address "michael.westbom@maxwellhealth.com")
   #+END_SRC
 
@@ -128,21 +163,21 @@
 
    Tabs are bad news.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (setq-default indent-tabs-mode nil)
      (setq tab-width 2)
    #+END_SRC
 
    Make tab key do indent first, then completion.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (setq-default tab-always-indent 'complete)
    #+END_SRC
 
 ** Misc. Variable Settings
 
    So over typing =yes=
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (fset 'yes-or-no-p 'y-or-n-p)
    #+END_SRC
 
@@ -150,7 +185,7 @@
 
   Cut out some junk
 
-  #+BEGIN_SRC elisp
+  #+BEGIN_SRC emacs-lisp
     (setq initial-scratch-message "")
     (setq visible-bell t)
 
@@ -165,7 +200,7 @@
 
    I love whitespace mode. Gank some stuff from [[https://github.com/syl20bnr/spacemacs][spacemacs]]
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (use-package whitespace
        :defer t
        :init
@@ -175,7 +210,6 @@
                                   tab-mark
                                   trailing
                                   indentation::tab))
-
          (setq mw-show-trailing-whitespace t)
          (defun mw//show-trailing-whitespace ()
            (when mw-show-trailing-whitespace
@@ -202,9 +236,11 @@
          (add-hook 'diff-mode-hook 'mw//set-whitespace-style-for-diff))
        :config
        (progn
+         (set-face-attribute 'whitespace-indentation nil
+                             :background nil
+                             :foreground nil)
          (set-face-attribute 'whitespace-tab nil
                              :background nil)))
-
    #+END_SRC
 
 * Key Bindings
@@ -215,7 +251,7 @@
 
    Let's use [[https://github.com/justbur/emacs-which-key][which-key]] to display them as I type
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (use-package which-key
        :ensure t
        :defer 10
@@ -227,6 +263,54 @@
         "C-c C-v" "org-babel")
        (which-key-mode 1))
    #+END_SRC
+* Word Smithing
+** Auto Complete
+
+   [[http://company-mode.github.io][company-mode]] is the bee's knees
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package company
+       :ensure t
+       :init
+       (setq company-dabbrev-ignore-case t
+             company-show-numbers t)
+       (add-hook 'after-init-hook 'global-company-mode)
+       :diminish company-mode)
+   #+END_SRC
+
+* Miscellaneous Settings
+
+** Line Numbers
+
+   Turn =linum-mode= on for programming modes
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package linum
+       :init
+       (add-hook 'prog-mode-hook 'linum-mode))
+   #+END_SRC
+
+** Flycheck
+
+   Because of linting
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck
+       :ensure t
+       :init
+       (add-hook 'after-init-hook 'global-flycheck-mode)
+       :config
+       (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+   #+END_SRC
+
+** Strip Whitespace on Save
+
+   When I save, I want to /always/ strip trailing whitespace
+
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'before-save-hook 'delete-trailing-whitespace)
+   #+END_SRC
+
 * General Behavior fixes
 
   Some crap's going to go here eventually.
@@ -235,7 +319,7 @@
 
   undo-tree is the bomb
 
-  #+BEGIN_SRC elisp
+  #+BEGIN_SRC emacs-lisp
     (use-package undo-tree
       :ensure t
       :diminish undo-tree-mode
@@ -249,7 +333,7 @@
 
   I always forget to install this when I manually emacs
 
-  #+BEGIN_SRC elisp
+  #+BEGIN_SRC emacs-lisp
     (use-package multiple-cursors
       :ensure t
       :commands (mc/mark-next-like-this
@@ -271,9 +355,12 @@
    [[https://github.com/abo-abo/swiper][Ivy]] is a generic completion mechanism for emacs. I wonder if I'll
    like it more than Helm.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (use-package ivy
        :ensure t
+       :diminish ivy-mode
+       :bind (("M-x" . counsel-M-x)
+              ("C-x C-f" . counsel-find-file))
        :config (ivy-mode))
    #+END_SRC
 
@@ -281,9 +368,10 @@
 
    Projectile is rad and very good.
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (use-package projectile
        :ensure t
+       :diminish projectile-mode
        :init (projectile-global-mode 1)
        :config
        (add-to-list 'projectile-globally-ignored-files ".DS_Store")
@@ -291,14 +379,44 @@
               ("C-c p p" . projectile-switch-project)))
    #+END_SRC
 
+** Counsel-projectile
+
+   Now let's put Ivy and Projectile together!
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package counsel-projectile
+       :ensure t
+       :config
+       (counsel-projectile-on))
+   #+END_SRC
+
+* Programming
+
+** Javascript
+
+   See [[file:emacs-javascript.org][emacs-javascript.org]] for this business
+
+   #+BEGIN_SRC emacs-lisp
+     (require 'init-javascript)
+   #+END_SRC
+
+** Typescript
+
+   This is all set up in [[file:emacs-typescript.org][emacs-typescript.org]]
+
+   #+BEGIN_SRC emacs-lisp
+     (require 'init-typescript)
+   #+END_SRC
+
 * Magit
 
   Omg I love this so much
 
-  #+BEGIN_SRC elisp
+  #+BEGIN_SRC emacs-lisp
     (use-package magit
       :ensure t
       :commands magit-status magit-blame
+      :init (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
       :bind ("C-x g" . magit-status))
   #+END_SRC
 
@@ -312,16 +430,28 @@
    to load and evaluate.  We assume the local file has been tangled
    and provides the =init-local= key:
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (require 'init-local nil t)
    #+END_SRC
 
 * Technical junk
-   Finally, let's get happy:
+
+** Configure the Graphical Settings
+
+   If we're running in a windowed environment, there's stuff to be
+   done
+
+   #+BEGIN_SRC emacs-lisp
+     (if (window-system)
+         (require 'init-client)
+       (require 'init-server))
+   #+END_SRC
+
+** Last little bits
 
    After the first load, we can reload this with a require:
 
-   #+BEGIN_SRC elisp
+   #+BEGIN_SRC emacs-lisp
      (provide 'init-main)
    #+END_SRC
 
@@ -329,11 +459,11 @@
    the cursor over any of these properties, and hit: =C-c C-c=
 
 #+DESCRIPTION: A literate programming version of my Emacs Initialization script, loaded by the .emacs file.
-#+PROPERTY:    results silent
+#+PROPERTY:    header-args :results silent
 #+PROPERTY:    header-args:sh  :tangle no
-#+PROPERTY:    tangle ~/.emacs.d/elisp/init-main.el
-#+PROPERTY:    eval no-export
-#+PROPERTY:    comments org
+#+PROPERTY:    header-args:emacs-lisp :tangle ~/.emacs.d/elisp/init-main.el
+#+PROPERTY:    header-args :eval no-export
+#+PROPERTY:    header-args :comments org
 #+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
 #+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
 #+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js

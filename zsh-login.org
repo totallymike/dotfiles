@@ -34,7 +34,7 @@ Execute code that does not affect the current session in the background.
   The following are the tangled settings. Type =C-c C-v t= to create
   the script file.
 
-#+PROPERTY: tangle ~/.zlogin
-#+PROPERTY: comments both
-#+PROPERTY: shebang #!/usr/local/bin/zsh
+#+PROPERTY: header-args :tangle ~/.zlogin
+#+PROPERTY: header-args :comments both
+#+PROPERTY: header-args :shebang #!/usr/local/bin/zsh
 #+DESCRIPTION: Basic config for zsh

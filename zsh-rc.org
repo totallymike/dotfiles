@@ -45,7 +45,7 @@ On a mac, you can get zplug by running
 
   #+BEGIN_SRC sh
     ## fasd config
-    cache_file="${0:h}/cache.zsh"
+    cache_file="$HOME/cache.zsh"
     if [[ "${commands[fasd]}" -nt "$cache_file" || ! -s "$cache_file" ]]; then
       # Set the base init arguments.
       init_args=(zsh-hook)
@@ -134,7 +134,7 @@ On a mac, you can get zplug by running
   The following are the tangled settings. Type =C-c C-v t= to create
   the script file.
 
-#+PROPERTY: tangle ~/.zshrc
-#+PROPERTY: comments both
-#+PROPERTY: shebang #!/usr/local/bin/zsh
+#+PROPERTY: header-args :tangle ~/.zshrc
+#+PROPERTY: header-args :comments both
+#+PROPERTY: header-args :shebang #!/usr/local/bin/zsh
 #+DESCRIPTION: Basic config for zsh

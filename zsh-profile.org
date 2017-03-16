@@ -34,6 +34,7 @@ This stuff all runs pre-[[file:zsh-rc.org][zshrc]].
   #+BEGIN_SRC sh
     path=(
       /usr/local/bin/{bin,sbin}
+      $HOME/.yarn/bin
       $path
     )
   #+END_SRC
@@ -67,7 +68,7 @@ This stuff all runs pre-[[file:zsh-rc.org][zshrc]].
   The following are the tangled settings. Type =C-c C-v t= to create
   the script file.
 
-#+PROPERTY: tangle ~/.zprofile
-#+PROPERTY: comments both
-#+PROPERTY: shebang #!/usr/local/bin/zsh
+#+PROPERTY: header-args :tangle ~/.zprofile
+#+PROPERTY: header-args :comments both
+#+PROPERTY: header-args :shebang #!/usr/local/bin/zsh
 #+DESCRIPTION: Basic config for zsh
