@@ -1,0 +1,60 @@
+#+TITLE:  Emacs Configuration File for JS
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+* JS2 Mode
+
+  It's pretty good
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package js2-mode
+      :ensure t
+      :init
+      (setq js-basic-indent 2)
+      (setq-default js2-basic-indent 2
+                    js2-basic-offset 2
+                    js2-auto-indent-p t
+                    js2-cleanup-whitespace t
+                    js2-enter-indents-newline t
+                    js2-indent-on-enter-key t))
+  #+END_SRC
+
+* JSON mode
+
+  Handy for json, I guess?
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package json-mode
+      :ensure t
+      :defer t)
+  #+END_SRC
+
+* Flycheck and JSHint
+
+  Eslint is better.  So there
+
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'js2-mode-hook
+              (lambda () (flycheck-select-checker "javascript-eslint")))
+  #+END_SRC
+
+* Technical Junk
+
+  After the first load, we can reload this with a require:
+
+  #+BEGIN_SRC emacs-lisp
+    (provide 'init-javascript)
+  #+END_SRC
+
+  Before you can build this on a new system, make sure that you put
+  the cursor over any of these properties, and hit: =C-c C-c=
+
+#+DESCRIPTION: A literate programming version of my Emacs Initialization script, loaded by the .emacs file.
+#+PROPERTY:    header-args :results silent
+#+PROPERTY:    header-args:sh  :tangle no
+#+PROPERTY:    header-args:emacs-lisp :tangle ~/.emacs.d/elisp/init-javascript.el
+#+PROPERTY:    header-args :eval no-export
+#+PROPERTY:    header-args :comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js

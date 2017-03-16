@@ -1,0 +1,55 @@
+#+TITLE:  Emacs Configuration File for Typescript
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+Let's have some Typescript config stuff
+
+* Typescript Mode
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package typescript-mode
+      :ensure t
+      :defer t)
+  #+END_SRC
+
+  And now define the =company-backends-typescript= variable
+
+  #+BEGIN_SRC emacs-lisp
+    (mw|defvar-company-backends typescript-mode)
+  #+END_SRC
+
+* Tide mode
+
+  Lots more autocompletion, documentation things
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package tide
+      :defer t
+      :ensure t
+      :init
+      (progn
+        (add-hook 'typescript-mode-hook 'tide-setup)
+        (add-hook 'typescript-mode-hook 'eldoc-mode)
+        (push 'company-tide company-backends-typescript-mode)))
+  #+END_SRC
+
+* Technical Artifacts
+
+  After the first load, we can reload this with a require:
+
+  #+BEGIN_SRC emacs-lisp
+    (provide 'init-typescript)
+  #+END_SRC
+
+  Before you can build this on a new system, make sure that you put
+  the cursor over any of these properties, and hit: =C-c C-c=
+
+#+DESCRIPTION: A literate programming version of my Emacs Typescript Config, loaded by the .emacs file.
+#+PROPERTY:    header-args :results silent
+#+PROPERTY:    header-args:sh  :tangle no
+#+PROPERTY:    header-args:emacs-lisp :tangle ~/.emacs.d/elisp/init-typescript.el
+#+PROPERTY:    header-args :eval no-export
+#+PROPERTY:    header-args :comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
