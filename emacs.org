@@ -350,20 +350,25 @@
 
 * Loading and Finding Files
 
-** Ivy
+** Helm
 
-   [[https://github.com/abo-abo/swiper][Ivy]] is a generic completion mechanism for emacs. I wonder if I'll
-   like it more than Helm.
+   I like Helm. It's powerful and it matches well.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package ivy
+     (use-package helm
        :ensure t
-       :diminish ivy-mode
-       :bind (("M-x" . counsel-M-x)
-              ("C-x C-f" . counsel-find-file))
-       :config (ivy-mode))
+       :diminish (helm-mode)
+       :bind (("M-x" . helm-M-x)
+              ("C-x C-f" . helm-find-files))
+       :config (helm-mode 1))
    #+END_SRC
 
+   Let's also add helm-ag because it's so nice
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-ag
+       :ensure t)
+   #+END_SRC
 ** Projectile
 
    Projectile is rad and very good.
@@ -379,15 +384,15 @@
               ("C-c p p" . projectile-switch-project)))
    #+END_SRC
 
-** Counsel-projectile
+** Helm-projectile
 
-   Now let's put Ivy and Projectile together!
+   Now let's put Helm and Projectile together!
 
    #+BEGIN_SRC emacs-lisp
-     (use-package counsel-projectile
+     (use-package helm-projectile
        :ensure t
        :config
-       (counsel-projectile-on))
+       (helm-projectile-on))
    #+END_SRC
 
 * Programming
