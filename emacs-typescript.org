@@ -28,8 +28,14 @@ Let's have some Typescript config stuff
       :ensure t
       :init
       (progn
-        (add-hook 'typescript-mode-hook 'tide-setup)
-        (add-hook 'typescript-mode-hook 'eldoc-mode)
+        (defun mw/setup-tide-mode ()
+          (interactive)
+          "Only enable tide mode if we have a file buffer"
+          (unless (eq buffer-file-name nil)
+            (progn
+              (tide-setup)
+              (eldoc-mode))))
+        (add-hook 'typescript-mode-hook #'mw/setup-tide-mode)
         (push 'company-tide company-backends-typescript-mode)))
   #+END_SRC
 
