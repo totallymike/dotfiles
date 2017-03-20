@@ -9,7 +9,9 @@ Let's have some Typescript config stuff
   #+BEGIN_SRC emacs-lisp
     (use-package typescript-mode
       :ensure t
-      :defer t)
+      :defer t
+      :init
+      (setq-default typescript-indent-level 2))
   #+END_SRC
 
   And now define the =company-backends-typescript= variable
