@@ -1,0 +1,45 @@
+#+TITLE:  Emacs Configuration File for Web
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+* Web Mode
+
+
+  Also set up the =company-backends-web-mode= variable.
+
+  #+BEGIN_SRC emacs-lisp
+    (mw|defvar-company-backends web-mode)
+  #+END_SRC
+
+  Use [[http://web-mode.org/][web-mode]] because it's awesome.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package web-mode
+      :ensure t
+      :defer t
+      :init
+      (push '(company-web-html company-css) company-backends-web-mode)
+      :mode (("\\.html\\'" . web-mode)
+             ("\\.htm\\'" . web-mode)))
+    #+END_SRC
+
+* Technical Junk
+
+  After the first load, we can reload this with a require:
+
+  #+BEGIN_SRC emacs-lisp
+    (provide 'init-web)
+  #+END_SRC
+
+  Before you can build this on a new system, make sure that you put
+  the cursor over any of these properties, and hit: =C-c C-c=
+
+#+DESCRIPTION: A literate programming version of my Emacs web-mode config, loaded by the .emacs file.
+#+PROPERTY:    header-args :results silent
+#+PROPERTY:    header-args:sh  :tangle no
+#+PROPERTY:    header-args:emacs-lisp :tangle ~/.emacs.d/elisp/init-web.el
+#+PROPERTY:    header-args :eval no-export
+#+PROPERTY:    header-args :comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
