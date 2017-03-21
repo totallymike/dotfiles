@@ -8,8 +8,8 @@
 (require 'shell-script-funcs script-funcs-src)
 
 (defconst dot-files-src (if load-file-name
-			    (file-name-directory load-file-name)
-			  (file-name-directory (buffer-file-name))))
+                            (file-name-directory load-file-name)
+                          (file-name-directory (buffer-file-name))))
 
 (defconst mw/emacs-directory (concat (getenv "HOME") "/.emacs.d/"))
 
