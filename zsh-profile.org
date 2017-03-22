@@ -68,7 +68,7 @@ This stuff all runs pre-[[file:zsh-rc.org][zshrc]].
   The following are the tangled settings. Type =C-c C-v t= to create
   the script file.
 
-#+PROPERTY: header-args :tangle ~/.zprofile
+#+PROPERTY: header-args:sh :tangle ~/.zprofile
 #+PROPERTY: header-args :comments both
 #+PROPERTY: header-args :shebang #!/usr/local/bin/zsh
 #+DESCRIPTION: Basic config for zsh

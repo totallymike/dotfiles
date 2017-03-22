@@ -61,8 +61,9 @@ On a mac, you can get zplug by running
     unset cache_file init_args
 
     function fasd_cd {
-      local fasd_ret="$(fasd -d "@")"
+      local fasd_ret="$(fasd -d "$@")"
       if [[ -d "$fasd_ret" ]]; then
+        echo "$fasd_ret"
         cd "$fasd_ret"
       else
         print "$fasd_ret"
@@ -134,7 +135,7 @@ On a mac, you can get zplug by running
   The following are the tangled settings. Type =C-c C-v t= to create
   the script file.
 
-#+PROPERTY: header-args :tangle ~/.zshrc
+#+PROPERTY: header-args:sh :tangle ~/.zshrc
 #+PROPERTY: header-args :comments both
 #+PROPERTY: header-args :shebang #!/usr/local/bin/zsh
 #+DESCRIPTION: Basic config for zsh
