@@ -141,15 +141,17 @@
         (let ((mode-hook (intern (format "%S-hook" mode)))
               (func (intern (format "mw//init-company-%S" mode)))
               (backend-list (intern (format "company-backends-%S" mode))))
-          `(defun ,func ()
-             ,(format "Initialize company for %S" mode)
-             (set (make-variable-buffer-local 'auto-completion-front-end)
-                  'company)
-             (set (make-variable-buffer-local 'company-backends)
-                  ,backend-list))
-          (add-hook ',mode-hook ',func t)
-          (add-hook ',mode-hook 'company-mode t)))
+          `(progn
+             (defun ,func ()
+               ,(format "Initialize company for %S" mode)
+               (set (make-variable-buffer-local 'auto-completion-front-end)
+                    'company)
+               (set (make-variable-buffer-local 'company-backends)
+                    ,backend-list))
+             (add-hook ',mode-hook ',func t)
+             (add-hook ',mode-hook 'company-mode t))))
     #+END_SRC
+
 
 * Variables
 
@@ -301,6 +303,16 @@
        (add-hook 'after-init-hook 'global-flycheck-mode)
        :config
        (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+   #+END_SRC
+
+   Also add mechanism for adding flycheck hooks.  Stolen [[https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%252Bcheckers/syntax-checking/funcs.el#L12-L18][from here]]
+
+   #+BEGIN_SRC emacs-lisp
+     (defun mw/add-flycheck-hook (mode)
+       "Use flycheck in MODE by default."
+       (when (and (listp flycheck-global-modes)
+                  (not (eq 'not (car flycheck-global-modes))))
+         (push mode flycheck-global-modes)))
    #+END_SRC
 
 ** Strip Whitespace on Save

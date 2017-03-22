@@ -5,7 +5,7 @@
 * Web Mode
 
 
-  Also set up the =company-backends-web-mode= variable.
+  Set up the =company-backends-web-mode= variable.
 
   #+BEGIN_SRC emacs-lisp
     (mw|defvar-company-backends web-mode)
@@ -22,6 +22,59 @@
       :mode (("\\.html\\'" . web-mode)
              ("\\.htm\\'" . web-mode)))
     #+END_SRC
+
+* React
+
+  Set up some necessary stuff to make react work nicely with
+  Javascript and Typescript.
+
+  #+BEGIN_SRC emacs-lisp
+    (mw|defvar-company-backends react-mode)
+
+    (use-package web-mode
+      :config
+      (progn
+        (define-derived-mode react-mode web-mode "react")
+        (mw|add-company-hook react-mode)
+        (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
+        (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
+        (add-to-list 'magic-mode-alist '("/\\*\\* @jsx React.DOM \\*/" . react-mode))
+        (add-to-list 'magic-mode-alist '("^import React" . react-mode))
+        (defun mw//setup-react-mode ()
+          "Adjust web-mode to accommodate react-mode"
+          (web-mode-set-content-type "jsx")
+          (setq-local web-mode-enable-auto-quoting nil))
+        (add-hook 'react-mode-hook 'mw//setup-react-mode)
+        (add-to-list 'auto-mode-alist '("\\.tsx'" . web-mode))
+        (add-hook 'web-mode-hook
+                  (lambda ()
+                    (when (and (buffer-file-name)
+                               (string-equal "tsx" (file-name-extension (buffer-file-name))))
+                      (tide-setup)
+                      (flycheck-mode +1)
+                      (eldoc-mode +1)
+                      (company-mode-on))))))
+  #+END_SRC
+
+  Add flycheck-related config for this new react-mode
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package flycheck
+      :config
+      (progn
+        (flycheck-add-mode 'javascript-eslint 'react-mode)
+        (defun react/use-eslint-from-node-modules ()
+          (let* ((root (locate-dominating-file
+                        (or (buffer-file-name) default-directory)
+                        "node_modules"))
+                 (global-eslint (executable-find "eslint"))
+                 (local-eslint (expand-file-name "node_modules/.bin/eslint"
+                                                 root))
+                 (eslint (if (file-executable-p local-eslint)
+                             local-eslint
+                           global-eslint)))
+            (setq-local flycheck-javascript-eslint-executable eslint)))))
+  #+END_SRC
 
 * Technical Junk
 
