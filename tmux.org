@@ -44,14 +44,13 @@ Before it's any good, you need [[https://github.com/tmux-plugins/tpm][tpm]]:
 
    #+BEGIN_SRC conf
      set-option -g prefix C-o
-     bind-key C-o last-window
    #+END_SRC
 
    Also, in the event of nested tmux sessions, let's allow =C-o o
    <command>= to work
 
    #+BEGIN_SRC conf
-     bind-key o send-prefix
+     bind-key 'C-o' send-prefix
    #+END_SRC
 
 * Initialize TPM
@@ -67,6 +66,6 @@ Before it's any good, you need [[https://github.com/tmux-plugins/tpm][tpm]]:
   The following are the tangled settings. Type =C-c C-v t= to create
   the script file.
 
-#+PROPERTY: tangle ~/.tmux.conf
-#+PROPERTY: comments org
+#+PROPERTY: header-args:conf :tangle ~/.tmux.conf
+#+PROPERTY: header-args :comments org
 #+DESCRIPTION: A tmux configuration
