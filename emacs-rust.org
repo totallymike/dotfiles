@@ -1,0 +1,94 @@
+#+TITLE:  Emacs Configuration File for Rust
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+* rust-mode
+
+  Let's start with the basics.  Here's rust-mode for reasons of rust usage.
+
+  #+BEGIN_SRC emacs-lisp
+    (mw|defvar-company-backends rust-mode)
+    (use-package rust-mode
+      :ensure t
+      :config
+      (progn
+        (push 'company-capf company-backends-rust-mode)
+        (mw|add-company-hook rust-mode)))
+  #+END_SRC
+
+** toml-mode
+
+   Cargo uses toml files, so let's have that too
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package toml-mode
+       :ensure t
+       :mode "\\.toml\\'")
+   #+END_SRC
+
+* Cargo
+
+  Cargo has its own [[https://github.com/kwrooijen/cargo.el][minor mode]]
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package cargo
+      :defer t
+      :ensure t
+      :config
+      (progn
+        (add-hook 'rust-mode-hook 'cargo-minor-mode)))
+  #+END_SRC
+
+* Racer
+
+  Racer is wonderful. It's the autocomplete/docs stuff for rust.
+
+  First you need to do
+
+  #+BEGIN_SRC sh
+    cargo install racer
+  #+END_SRC
+
+  Then we can install it here:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package racer
+      :diminish racer-mode
+      :defer t
+      :init
+      (progn
+        (add-hook 'rust-mode-hook 'racer-mode)
+        (add-hook 'rust-mode-hook 'eldoc-mode)))
+  #+END_SRC
+
+* flycheck-rust
+
+   [[https://github.com/flycheck/flycheck-rust][flycheck-rust]] is a thing. Probably seems like a good idea.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck-rust
+       :defer t
+       :ensure t
+       :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+   #+END_SRC
+
+* Technical Junk
+
+  After the first load, we can reload this with a require:
+
+  #+BEGIN_SRC emacs-lisp
+    (provide 'init-rust)
+  #+END_SRC
+
+  Before you can build this on a new system, make sure that you put
+  the cursor over any of these properties, and hit: =C-c C-c=
+
+#+DESCRIPTION: The rust-specific stuff for emacs
+#+PROPERTY:    header-args :results silent
+#+PROPERTY:    header-args:sh  :tangle no
+#+PROPERTY:    header-args:emacs-lisp :tangle ~/.emacs.d/elisp/init-rust.el
+#+PROPERTY:    header-args :eval no-export
+#+PROPERTY:    header-args :comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js

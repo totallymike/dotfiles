@@ -429,6 +429,13 @@
      (require 'init-typescript)
    #+END_SRC
 
+** Rust
+
+   Rust is fantastic. Let's load it from [[file:emacs-rust.org][emacs-rust.org]]
+
+   #+BEGIN_SRC emacs-lisp
+     (require 'init-rust)
+   #+END_SRC
 
 * Magit
 
