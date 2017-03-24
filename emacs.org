@@ -152,7 +152,6 @@
              (add-hook ',mode-hook 'company-mode t))))
     #+END_SRC
 
-
 * Variables
 
   General settings about me that other packages can use.
