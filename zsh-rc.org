@@ -95,6 +95,14 @@ On a mac, you can get zplug by running
      . $HOME/.asdf/completions/asdf.bash
    #+END_SRC
 
+** Rustup
+
+   The next part is required by [[https://www.rustup.rs/][Rustup]]
+
+   #+BEGIN_SRC sh
+     source $HOME/.cargo/env
+   #+END_SRC
+
 * Theme
 
   Who knows what I'll eventuall settle on, but for now I'm using
