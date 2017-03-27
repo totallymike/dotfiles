@@ -397,6 +397,17 @@
        (helm-projectile-on))
    #+END_SRC
 
+* Smartparens
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package smartparens
+      :ensure t
+      :diminish smartparens-mode
+      :config
+      (progn
+        (require 'smartparens-config)
+        (add-hook 'prog-mode-hook 'smartparens-mode)))
+  #+END_SRC
 * Programming
 ** Web
 
