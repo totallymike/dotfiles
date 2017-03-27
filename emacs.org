@@ -345,16 +345,9 @@
   I always forget to install this when I manually emacs
 
   #+BEGIN_SRC emacs-lisp
-    (use-package multiple-cursors
+    (use-package iedit
       :ensure t
-      :commands (mc/mark-next-like-this
-                 mc/mark-previous-like-this
-                 mc/mark-all-like-this
-                 mc/edit-lines)
-      :bind (("C->" . mc/mark-next-like-this)
-             ("C-<" . mc/mark-previous-like-this)
-             ("C-c C-<" . mc/mark-all-like-this)
-             ("C-S-c C-S-c" . mc/edit-lines)))
+      :defer t)
   #+END_SRC
 
 * Loading and Finding Files
