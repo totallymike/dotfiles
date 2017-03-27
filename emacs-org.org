@@ -12,7 +12,7 @@ The [[http://orgmode.org][Org Mode]] feature is amazing. Like...so good.
 
   #+BEGIN_SRC emacs-lisp
     (use-package org
-                 :ensure t
+                 :ensure org-plus-contrib
                  :init
                  :pin org
                  (setq org-use-speed-commands t
