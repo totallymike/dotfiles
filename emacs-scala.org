@@ -1,0 +1,61 @@
+#+TITLE:  Emacs Configuration File for Scala
+#+AUTHOR: Michael Westbom
+#+EMAIL: michael@westbom.co
+
+* Initial packages
+
+  #+BEGIN_SRC emacs-lisp
+    (defun scala/configure-ensime ()
+      "Ensure the file exists before starting `ensime-mode'."
+      (cond
+       ((and (buffer-file-name) (file-exists-p (buffer-file-name)))
+        (ensime-mode +1))
+       ((buffer-file-name)
+        (add-hook 'after-save-hook (lambda () (ensime-mode +1)) nil t))))
+    (defun scala/enable-eldoc ()
+      (setq-local eldoc-documentation-function
+                  (lambda ()
+                    (when (ensime-connected-p)
+                      (ensime-print-type-at-point))))
+      (eldoc-mode +1))
+    (use-package scala-mode
+      :ensure t
+      :pin melpa)
+    (use-package sbt-mode
+      :ensure t
+      :pin melpa)
+    (use-package ensime
+      :ensure t
+      :pin melpa
+      :init
+      (progn
+        (add-hook 'ensime-mode-hook 'scala/enable-eldoc)
+        (add-hook 'scala-mode-hook 'scala/configure-ensime))
+      :config
+      (progn
+        (setq user-emacs-ensime-directory ".cache/ensime")
+        (with-eval-after-load 'flycheck
+          (defun scala/disable-flycheck-scala ()
+            (push 'scala flycheck-disabled-checkers))
+          (add-hook 'ensime-mode-hook 'scala/disable-flycheck-scala))))
+  #+END_SRC
+* Technical Artifacts
+
+  After the first load, we can reload this with a require:
+
+  #+BEGIN_SRC emacs-lisp
+    (provide 'init-scala)
+  #+END_SRC
+
+  Before you can build this on a new system, make sure that you put
+  the cursor over any of these properties, and hit: =C-c C-c=
+
+#+DESCRIPTION: A literate programming version of my Emacs Typescript Config, loaded by the .emacs file.
+#+PROPERTY:    header-args :results silent
+#+PROPERTY:    header-args:sh  :tangle no
+#+PROPERTY:    header-args:emacs-lisp :tangle ~/.emacs.d/elisp/init-scala.el
+#+PROPERTY:    header-args :eval no-export
+#+PROPERTY:    header-args :comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js

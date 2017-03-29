@@ -441,6 +441,14 @@
      (require 'init-rust)
    #+END_SRC
 
+** Scala
+
+   Scala is a thing I use a bunch now. Look at [[file:emacs-scala.org][emacs-scala.org]]
+
+   #+BEGIN_SRC emacs-lisp
+     (require 'init-scala)
+   #+END_SRC
+
 * Magit
 
   Omg I love this so much
