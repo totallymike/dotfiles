@@ -45,8 +45,8 @@
           (web-mode-set-content-type "jsx")
           (setq-local web-mode-enable-auto-quoting nil))
         (add-hook 'react-mode-hook 'mw//setup-react-mode)
-        (add-to-list 'auto-mode-alist '("\\.tsx\\'" . react-mode))
-        (add-hook 'react-mode-hook
+        (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+        (add-hook 'web-mode-hook
                   (lambda ()
                     (when (and (buffer-file-name)
                                (string-equal "tsx" (file-name-extension (buffer-file-name))))
