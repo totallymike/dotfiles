@@ -29,6 +29,19 @@
       :defer t)
   #+END_SRC
 
+* Tern
+
+  Tern is handy for autocomplete garbages
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package tern
+      :ensure t
+      :init (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+      :config (use-package company-tern
+                :ensure t
+                :init (add-to-list 'company-backends 'company-tern)))
+  #+END_SRC
+
 * Flycheck and JSHint
 
   Eslint is better.  So there
