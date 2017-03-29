@@ -322,6 +322,18 @@
      (add-hook 'before-save-hook 'delete-trailing-whitespace)
    #+END_SRC
 
+** Crux
+
+   [[https://github.com/bbatsov/crux][crux]] is a thing bbatsov put together. It seems to have a bunch of stuff I want?
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package crux
+       :ensure t
+       :bind (("C-a" . crux-move-beginning-of-line)
+              ("C-c f D" . crux-delete-file-and-buffer)
+              ("C-c f R" . crux-rename-file-and-buffer)))
+   #+END_SRC
+
 * General Behavior fixes
 
   Some crap's going to go here eventually.
